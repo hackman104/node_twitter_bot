@@ -1,14 +1,17 @@
+// require twitter service class
+const TwitterService = require('./twitter_service');
+
 // require the twit package, which will allow us to talk to Twitter
-var twit = require('twit');
+const twit = require('twit');
 
 // import the config file with account security information
-var config = require('./config.js');
+const config = require('./config.js');
 
 // declare our Twitter handler
-var Twitter = new twit(config);
+const Twitter = new twit(config);
 
 // set up stream to interact with users
-var stream = Twitter.stream('user');
+const stream = Twitter.stream('user');
 
 // when someone follows, call the followed function
 stream.on('follow', followed)
@@ -48,7 +51,10 @@ function tweetNow(tweetTxt) {
 }
 
 // retweet function
-var retweet = function() {
+var retweet = async function() {
+
+    // instantiate twitter service
+    const twitterService = new TwitterService();
 
     // set the parameters of the search - result_type can be 'recent', 'mixed', or 'popular'
     var params = {
@@ -57,42 +63,28 @@ var retweet = function() {
         lang: 'en'
     };
 
-    // perform search based on parameters
-    Twitter.get('search/tweets', params, function(err, data) {
-        
-        // check for error
-        if (!err) {
+    try {
+        let statuses = await twitterService.search(params);
 
-            // access data statuses element in json response, get ID of first tweet. console.log if you wish to see structure
-            var retweetId = data.statuses[0].id_str;
-            
-            // retweet with ID just obtained
-            Twitter.post('statuses/retweet/:id', {
-                id: retweetId
-            }, function(err, response) {
-                
-                // inform if retweet was successful or if error occurred
-                if (response) {
-                    console.log('Retweeting ...');
-                }
-                if (err) {
-                    console.log('Something went wrong while RETWEETING - possibly a duplicate.');
-                }
-                else {
-                    console.log('Success!');
-                }
-            });
+        let n = statuses.length;
+
+        for (let i = 0; i < n; i++) {
+            let retweetId = statuses[i].id_str;
+
+            let success = await twitterService.retweet(retweetId);
+
+            if (success) {
+                break;
+            }
         }
 
-        // inform if error in search
-        else {
-            console.log('Something went wrong while SEARCHING');
-        }
-    });
+    } catch(error) {
+        console.error(error);
+    }
 }
 
-// retweet as soon as execution begins
-retweet();
+(async () => {
+    await retweet();
 
-// wait and repeat - time interval set in milliseconds, defaults here to once every hour
-setInterval(retweet, 3600000);
+    setInterval(retweet, 3600000);
+})();
