@@ -81,10 +81,10 @@ var retweet = async function() {
     } catch(error) {
         console.error(error);
     }
-}
+};
 
 (async () => {
     await retweet();
 
-    setInterval(retweet, 3600000);
+    setInterval(async () => await retweet(), 3600000);
 })();
