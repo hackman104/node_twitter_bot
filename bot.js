@@ -63,6 +63,9 @@ var retweet = function() {
         // check for error
         if (!err) {
 
+            let n = data.statuses.length;
+            let tweetSuccess = false;
+            
             // access data statuses element in json response, get ID of first tweet. console.log if you wish to see structure
             var retweetId = data.statuses[0].id_str;
             
@@ -83,8 +86,6 @@ var retweet = function() {
                 }
             });
         }
-
-        // test git integration
 
         // inform if error in search
         else {
