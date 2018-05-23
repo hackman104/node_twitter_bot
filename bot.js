@@ -65,26 +65,29 @@ var retweet = function() {
 
             let n = data.statuses.length;
             let tweetSuccess = false;
+
+            for (let i = 0; i < n; i++) {
             
-            // access data statuses element in json response, get ID of first tweet. console.log if you wish to see structure
-            var retweetId = data.statuses[0].id_str;
-            
-            // retweet with ID just obtained
-            Twitter.post('statuses/retweet/:id', {
-                id: retweetId
-            }, function(err, response) {
+                // access data statuses element in json response, get ID of first tweet. console.log if you wish to see structure
+                var retweetId = data.statuses[n].id_str;
                 
-                // inform if retweet was successful or if error occurred
-                if (response) {
-                    console.log('Retweeting ...');
-                }
-                if (err) {
-                    console.log('Something went wrong while RETWEETING - possibly a duplicate.');
-                }
-                else {
-                    console.log('Success!');
-                }
-            });
+                // retweet with ID just obtained
+                Twitter.post('statuses/retweet/:id', {
+                    id: retweetId
+                }, function(err, response) {
+                    
+                    // inform if retweet was successful or if error occurred
+                    if (response) {
+                        console.log('Retweeting ...');
+                    }
+                    if (err) {
+                        console.log('Something went wrong while RETWEETING - possibly a duplicate.');
+                    }
+                    else {
+                        console.log('Success!');
+                    }
+                });
+            }
         }
 
         // inform if error in search
