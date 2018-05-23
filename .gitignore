@@ -1,0 +1,5 @@
+# Exclude for security
+config.js
+
+# Exclude dependencies
+node_modules
