@@ -1,5 +1,5 @@
 # Exclude for security
-config.js
+.env
 
 # Exclude dependencies
 node_modules

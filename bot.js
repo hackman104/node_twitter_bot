@@ -3,6 +3,7 @@ var twit = require('twit');
 
 // import the config file with account security information
 var config = require('./config.js');
+console.log(config);
 
 // declare our Twitter handler
 var Twitter = new twit(config);
