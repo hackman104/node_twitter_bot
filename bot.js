@@ -21,7 +21,7 @@ function followed(event) {
     console.log('New follower detected');
 
     // get user's twitter info
-    var name = event.source.name,
+    let name = event.source.name,
     screenName = event.source.screen_name;
 
     // call function to reply to new follower
@@ -32,12 +32,12 @@ function followed(event) {
 function tweetNow(tweetTxt) {
     
     // set up tweet
-    var tweet = {
+    let tweet = {
         status: tweetTxt
     }
 
     // post tweet
-    Twitter.post('statuses/update', tweet, function(err, data, response) {
+    Twitter.post('statuses/update', tweet, (err, data, response) => {
         
         // notify whether error occurred or successfully replied
         if (err) {
@@ -47,17 +47,16 @@ function tweetNow(tweetTxt) {
             console.log("Successfully tweeted to new follower.");
         }
     });
-
 }
 
 // retweet function
-var retweet = async function() {
+async function retweet() {
 
     // instantiate twitter service
     const twitterService = new TwitterService();
 
     // set the parameters of the search - result_type can be 'recent', 'mixed', or 'popular'
-    var params = {
+    let params = {
         q: 'Pittsburgh OR PittsburghWeather OR PittsburghTraffic OR PittsburghConstruction',
         result_type: 'mixed',
         lang: 'en'
@@ -81,7 +80,7 @@ var retweet = async function() {
     } catch(error) {
         console.error(error);
     }
-};
+}
 
 (async () => {
     await retweet();
