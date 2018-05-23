@@ -84,6 +84,8 @@ var retweet = function() {
             });
         }
 
+        // test git integration
+
         // inform if error in search
         else {
             console.log('Something went wrong while SEARCHING');
