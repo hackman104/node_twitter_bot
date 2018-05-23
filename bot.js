@@ -1,10 +1,5 @@
-// require twitter service class
 const TwitterService = require('./twitter_service');
-
-// require the twit package, which will allow us to talk to Twitter
 const twit = require('twit');
-
-// import the config file with account security information
 const config = require('./config.js');
 
 // declare our Twitter handler
@@ -62,11 +57,15 @@ async function retweet() {
         lang: 'en'
     };
 
+    // try searching for a tweet and retweeting it, log error if unsuccessful
     try {
+
+        // get list of tweets, wait until continuing
         let statuses = await twitterService.search(params);
 
         let n = statuses.length;
 
+        // go through tweets attempting to retweet, breaking if successful
         for (let i = 0; i < n; i++) {
             let retweetId = statuses[i].id_str;
 
@@ -82,6 +81,7 @@ async function retweet() {
     }
 }
 
+// call retweet asynchronously
 (async () => {
     await retweet();
 
