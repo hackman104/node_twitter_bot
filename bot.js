@@ -10,7 +10,7 @@ var Twitter = new twit(config);
 // retweet function
 var retweet = function() {
 
-    // set the parameters of the search - result_type can be changed to 'recent' to prioritize recent tweets
+    // set the parameters of the search - result_type can be 'recent', 'mixed', or 'popular'
     var params = {
         q: 'Pittsburgh OR PittsburghWeather OR PittsburghTraffic OR PittsburghConstruction',
         result_type: 'mixed',
