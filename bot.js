@@ -3,7 +3,6 @@ var twit = require('twit');
 
 // import the config file with account security information
 var config = require('./config.js');
-console.log(config);
 
 // declare our Twitter handler
 var Twitter = new twit(config);
@@ -34,10 +33,13 @@ var retweet = function() {
                 
                 // inform if retweet was successful or if error occurred
                 if (response) {
-                    console.log('Retweeted!');
+                    console.log('Retweeting ...');
                 }
                 if (err) {
-                    console.log('Something went wrong while RETWEETING!');
+                    console.log('Something went wrong while RETWEETING - possibly a duplicate.');
+                }
+                else {
+                    console.log('Success!');
                 }
             });
         }

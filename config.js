@@ -1,5 +1,4 @@
 if (process.env.NODE_ENV !== 'production') {
-    console.log('Including .env file')
     require('dotenv').config();
 }
 
