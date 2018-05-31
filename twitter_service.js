@@ -28,7 +28,7 @@ class TwitterService {
             }, function(err, response) {
                 
                if (err) {
-                   console.log('Error retweeting: possible duplicate', err);
+                   console.log('Error retweeting: possible duplicate');
                    resolve(false);
                }
                else {

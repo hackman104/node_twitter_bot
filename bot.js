@@ -67,12 +67,17 @@ async function retweet() {
 
         // go through tweets attempting to retweet, breaking if successful
         for (let i = 0; i < n; i++) {
-            let retweetId = statuses[i].id_str;
+            if (!statuses[i].possibly_sensitive)
+            {
+                let retweetId = statuses[i].id_str;
 
-            let success = await twitterService.retweet(retweetId);
+                let success = await twitterService.retweet(retweetId);
 
-            if (success) {
-                break;
+                if (success) {
+                    break;
+                }
+            } else {
+                continue;
             }
         }
 
